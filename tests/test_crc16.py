@@ -19,6 +19,10 @@ def test_calculate_accepts_bytes_and_bytearray():
     assert CRC16.calculate(b"ABC") == CRC16.calculate(bytearray(b"ABC"))
 
 
+def test_calculate_accepts_explicit_string_encoding():
+    assert CRC16.calculate("ABC", encoding="ascii") == CRC16.calculate(b"ABC")
+
+
 def test_calculate_rejects_unsupported_input_types():
     with pytest.raises(TypeError):
         CRC16.calculate(123)
