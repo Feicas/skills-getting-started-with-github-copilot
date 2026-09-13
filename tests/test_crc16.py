@@ -1,6 +1,6 @@
 import pytest
 
-from src.app import CRC16
+from src.crc16 import CRC16
 
 
 def test_calculate_returns_known_crc16_value():
