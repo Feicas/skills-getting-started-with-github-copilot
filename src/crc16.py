@@ -43,6 +43,8 @@ class CRC16:
         if isinstance(data, str):
             return data.encode(encoding)
         if isinstance(data, (bytes, bytearray)):
+            if encoding != "utf-8":
+                raise ValueError("encoding can only be changed for string input")
             return bytes(data)
         raise TypeError("CRC16 data must be str, bytes, or bytearray")
 

@@ -23,9 +23,19 @@ def test_calculate_accepts_explicit_string_encoding():
     assert CRC16.calculate("ABC", encoding="ascii") == CRC16.calculate(b"ABC")
 
 
+def test_calculate_uses_explicit_encoding_for_non_ascii_strings():
+    assert CRC16.calculate("é", encoding="utf-8") == CRC16.calculate("é".encode("utf-8"))
+    assert CRC16.calculate("é", encoding="utf-16-le") == CRC16.calculate("é".encode("utf-16-le"))
+
+
 def test_calculate_rejects_unsupported_input_types():
     with pytest.raises(TypeError):
         CRC16.calculate(123)
+
+
+def test_calculate_rejects_custom_encoding_for_bytes():
+    with pytest.raises(ValueError):
+        CRC16.calculate(b"ABC", encoding="utf-16")
 
 
 def test_calculate_rejects_out_of_range_crc_parameters():
