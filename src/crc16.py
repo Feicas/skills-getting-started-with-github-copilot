@@ -7,8 +7,8 @@ class CRC16:
     @staticmethod
     def calculate(data, initial_value=0xFFFF, polynomial=0xA001):
         payload = CRC16._normalize(data)
-        crc = initial_value & 0xFFFF
-        polynomial &= 0xFFFF
+        crc = CRC16._validate_word(initial_value, "initial_value")
+        polynomial = CRC16._validate_word(polynomial, "polynomial")
 
         for byte in payload:
             crc ^= byte
@@ -31,3 +31,11 @@ class CRC16:
         if isinstance(data, (bytes, bytearray)):
             return bytes(data)
         raise TypeError("CRC16 data must be str, bytes, or bytearray")
+
+    @staticmethod
+    def _validate_word(value, name):
+        if not isinstance(value, int):
+            raise TypeError(f"{name} must be an integer")
+        if not 0 <= value <= 0xFFFF:
+            raise ValueError(f"{name} must be between 0x0000 and 0xFFFF")
+        return value
