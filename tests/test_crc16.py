@@ -15,6 +15,11 @@ def test_calculate_accepts_bytes_and_bytearray():
     assert CRC16.calculate(b"ABC") == CRC16.calculate(bytearray(b"ABC"))
 
 
+def test_calculate_rejects_unsupported_input_types():
+    with pytest.raises(TypeError):
+        CRC16.calculate(123)
+
+
 def test_crc16_static_class_cannot_be_instantiated():
     with pytest.raises(TypeError):
         CRC16()

@@ -8,6 +8,7 @@ class CRC16:
     def calculate(data, initial_value=0xFFFF, polynomial=0xA001):
         payload = CRC16._normalize(data)
         crc = initial_value & 0xFFFF
+        polynomial &= 0xFFFF
 
         for byte in payload:
             crc ^= byte
