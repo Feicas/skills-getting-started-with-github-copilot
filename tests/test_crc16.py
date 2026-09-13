@@ -40,6 +40,14 @@ def test_calculate_rejects_non_integer_crc_parameters():
         CRC16.calculate("123456789", polynomial="40961")
 
 
+def test_calculate_rejects_boolean_crc_parameters():
+    with pytest.raises(TypeError):
+        CRC16.calculate("123456789", initial_value=True)
+
+    with pytest.raises(TypeError):
+        CRC16.calculate("123456789", polynomial=False)
+
+
 def test_crc16_static_class_cannot_be_instantiated():
     with pytest.raises(TypeError):
         CRC16()

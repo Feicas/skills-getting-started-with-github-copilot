@@ -47,7 +47,7 @@ class CRC16:
 
     @staticmethod
     def _validate_word(value, name):
-        if not isinstance(value, int):
+        if isinstance(value, bool) or not isinstance(value, int):
             raise TypeError(f"{name} must be an integer")
         if not 0 <= value <= 0xFFFF:
             raise ValueError(f"{name} must be between 0x0000 and 0xFFFF")
